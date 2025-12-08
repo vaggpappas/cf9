@@ -1,5 +1,8 @@
 package gr.aueb.cf.cf9.ch13;
 
+/**
+ * Lazy Initialization
+ */
 public class OnlyOneCodingLazy {
 
     private static OnlyOneCodingLazy instance; // = null
