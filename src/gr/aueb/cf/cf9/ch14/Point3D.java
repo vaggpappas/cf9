@@ -10,8 +10,23 @@ public class Point3D extends Point2D {
         this.z = z;
     }
 
+    public double getZ() {
+        return z;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
+
     @Override
-    public
+    public void movePlusOne() {
+        super.movePlusOne();
+        z += 1;
+    }
 
-
+    @Override
+    protected void movePlus10() {
+        super.movePlus10();
+        z += 10;
+    }
 }
