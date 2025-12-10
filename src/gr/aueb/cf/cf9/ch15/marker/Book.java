@@ -27,6 +27,5 @@ public class Book implements Item {
 
     public void setTitle(String title) {
         this.title = title;
-    } {
-
+    }
 }
