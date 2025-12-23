@@ -11,4 +11,5 @@ public interface IAccountDao {
     Optional<Account> findByName(String name);
     List<Account> getAllAccounts();
     // Queries
+    boolean isAccountExists(String iban);
 }
