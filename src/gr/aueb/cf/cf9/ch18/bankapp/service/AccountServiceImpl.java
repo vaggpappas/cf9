@@ -10,10 +10,8 @@ import gr.aueb.cf.cf9.ch18.bankapp.dto.AccountReadOnlyDTO;
 import gr.aueb.cf.cf9.ch18.bankapp.dto.AccountWithdrawDTO;
 import gr.aueb.cf.cf9.ch18.bankapp.model.Account;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class AccountServiceImpl implements IAccountService {
     private final IAccountDAO accountDAO;
@@ -34,7 +32,7 @@ public class AccountServiceImpl implements IAccountService {
         try {
             Account account = accountDAO.findByIban(depositDTO.iban())
                     .orElseThrow(() -> new AccountNotFoundException("Account with iban " + depositDTO.iban() + " not found!"));
-            account.setBalance(account.getBalance().add(depositDTO.amount()));
+            account.setBalance(account.getBalance());
             accountDAO.saveOrUpdate(account);
             // Logging
         } catch (AccountNotFoundException e) {
@@ -49,11 +47,11 @@ public class AccountServiceImpl implements IAccountService {
            Account account = accountDAO.findByIban(withdrawDTO.iban())
                    .orElseThrow(() -> new AccountNotFoundException("Account with iban " + withdrawDTO.iban() + " not found!"));
 
-           if (account.getBalance().compareTo(withdrawDTO.amount()) < 0) {
+           if (account.getBalance() < 0) {
                throw new InsufficientBalanceException("Invalid amount " + withdrawDTO.amount() + " for account with iban "
                        + withdrawDTO.iban() + " was greater than the balance");
            }
-           account.setBalance(account.getBalance().subtract(withdrawDTO.amount()));
+           account.setBalance(account.getBalance());
            accountDAO.saveOrUpdate(account);
            // Logging
        } catch (AccountNotFoundException e) {
@@ -67,7 +65,7 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public BigDecimal getBalance(String iban) throws AccountNotFoundException {
+    public double getBalance(String iban) throws AccountNotFoundException {
         try {
             Account account = accountDAO.findByIban(iban)
                     .orElseThrow(() -> new AccountNotFoundException("Account with iban " + iban + " not found!"));

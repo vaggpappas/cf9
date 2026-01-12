@@ -2,7 +2,6 @@ package gr.aueb.cf.cf9.ch18.bankapp.validation;
 
 import gr.aueb.cf.cf9.ch18.bankapp.core.exceptions.ValidationException;
 import gr.aueb.cf.cf9.ch18.bankapp.dao.AccountDAOImpl;
-import gr.aueb.cf.cf9.ch18.bankapp.dao.IAccountDao;
 import gr.aueb.cf.cf9.ch18.bankapp.dto.AccountDepositDTO;
 import gr.aueb.cf.cf9.ch18.bankapp.dto.AccountInsertDTO;
 import gr.aueb.cf.cf9.ch18.bankapp.dto.AccountWithdrawDTO;

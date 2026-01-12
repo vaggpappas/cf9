@@ -7,19 +7,20 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class AccountDAOImpl implements IAccountDao{
+public class AccountDAOImpl implements IAccountDAO {
     private final List<Account> accounts = new ArrayList<>();
 
     @Override
     public Account saveOrUpdate(Account account) {
-        int index = accounts.indexOf(account);  //equals
+        int index = accounts.indexOf(account);  // override equals
 
-        if (index == -1){           //Αν δεν υπάρχει στην λίστα
-            accounts.add(account);  // τότε κάνε insert
+        if (index == -1) {                      // Αν δεν υπάρχει στη λίστα
+            accounts.add(account);              // τότε κάνε insert
             return account;
         }
-        //Αν υπάρχει ήδη το Account
-        accounts.set(index, account);   // τότε κάνε update
+
+        // Αν υπάρχει ήδη το Account
+        accounts.set(index, account);           // τότε κάνε update
         return accounts.get(index);
     }
 
@@ -29,22 +30,27 @@ public class AccountDAOImpl implements IAccountDao{
     }
 
     @Override
-    public Optional<Account> findByName(String iban) {
+    public Optional<Account> findByIban(String iban) {
         return accounts.stream()
-                .filter(a -> a.getIban().equals(iban))
+                .filter(account -> account.getIban().equals(iban))
                 .findFirst();
     }
 
     @Override
     public List<Account> getAllAccounts() {
-        //return new ArrayList<>(accounts);
+        // return accounts;
+        // return new ArrayList<>(accounts);
         return Collections.unmodifiableList(accounts);
-        //return List.copyOf(accounts);
+        // return List.copyOf(accounts);
     }
 
     @Override
     public boolean isAccountExists(String iban) {
-        return accounts
-                .stream().anyMatch(account -> account.getIban().equals(iban));
+        return accounts.stream()
+                .anyMatch(account -> account.getIban().equals(iban));
+    }
+
+    public long count() {
+        return accounts.size();
     }
 }
