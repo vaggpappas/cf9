@@ -1,5 +1,6 @@
 package gr.aueb.cf.cf9.ch18.bankapp.model;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Account {
@@ -13,6 +14,9 @@ public class Account {
     public Account(String iban, double balance) {
         this.iban = iban;
         this.balance = balance;
+    }
+
+    public Account(String iban, BigDecimal balance) {
     }
 
     public String getIban() {
