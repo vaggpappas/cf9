@@ -82,7 +82,7 @@ public class AccountController {
             throw new ValidationException(errors.toString());
         }
 
-        return BigDecimal.valueOf(accountService.getBalance(iban));
+        return accountService.getBalance(iban);
     }
 
     public List<AccountReadOnlyDTO> getAllAccounts() {

@@ -6,7 +6,6 @@ import gr.aueb.cf.cf9.ch18.bankapp.core.exceptions.InsufficientBalanceException;
 import gr.aueb.cf.cf9.ch18.bankapp.core.exceptions.ValidationException;
 import gr.aueb.cf.cf9.ch18.bankapp.dao.AccountDAOImpl;
 import gr.aueb.cf.cf9.ch18.bankapp.dao.IAccountDAO;
-import gr.aueb.cf.cf9.ch18.bankapp.dto.AccountDepositDTO;
 import gr.aueb.cf.cf9.ch18.bankapp.dto.AccountReadOnlyDTO;
 import gr.aueb.cf.cf9.ch18.bankapp.service.AccountServiceImpl;
 import gr.aueb.cf.cf9.ch18.bankapp.service.IAccountService;
@@ -32,29 +31,27 @@ public class Main {
             try {
                 switch (option) {
                     case "1" -> {
-                        System.out.print("Παρακαλώ εισάγετε το iban");
+                        System.out.println("Παρακαλώ εισάγετε το iban");
                         iban = scanner.nextLine().trim();
                         System.out.println("Παρακαλώ εισάγετε το υπόλοιπο");
                         BigDecimal balance = new BigDecimal(scanner.nextLine().trim());
 
                         AccountReadOnlyDTO readOnlyDTO = accountController.createNewAccount(iban, balance);
-                        System.out.println("Ο λογαριασμός δημιουργήθηκε (ενημερώθηκε) επιτυχώς με iban: "
-                                + readOnlyDTO.iban() + " υπόλοιπο: " + readOnlyDTO.balance());
-
+                        System.out.println("Ο λογαριασμός δημιουργήθηκε (ανανεώθηκε) επιτυχώς με iban: " +
+                                readOnlyDTO.iban() + " υπόλοιπο: " + readOnlyDTO.balance());
                     }
                     case "2" -> {
-                        System.out.print("Παρακαλώ εισάγετε το iban");
+                        System.out.print("Παρακαλώ εισάγετε το iban: ");
                         iban = scanner.nextLine().trim();
                         System.out.println("Παρακαλώ εισάγετε το ποσό κατάθεσης");
                         BigDecimal depositAmount = new BigDecimal(scanner.nextLine().trim());
 
                         accountController.deposit(iban, depositAmount);
-                        System.out.println("Επιτυχής κατάθεση: " + depositAmount + ", Υπόλοιπο: " +
+                        System.out.println("Επιτυχής κατάθεση: " + depositAmount + ", Νέο Υπόλοιπο: " +
                                 accountController.getBalance(iban));
                     }
-
                     case "3" -> {
-                        System.out.print("Παρακαλώ εισάγετε το iban");
+                        System.out.print("Παρακαλώ εισάγετε το iban: ");
                         iban = scanner.nextLine().trim();
                         System.out.println("Παρακαλώ εισάγετε το ποσό ανάληψης");
                         BigDecimal withdrawAmount = new BigDecimal(scanner.nextLine().trim());
@@ -75,7 +72,7 @@ public class Main {
 
                         if (readOnlyDTOs.isEmpty()) {
                             System.out.println("Δεν βρέθηκαν λογαριασμοί");
-                        } else  {
+                        } else {
                             readOnlyDTOs.forEach(System.out::println);
                         }
                     }
@@ -86,15 +83,14 @@ public class Main {
                     }
                     default -> System.out.println("Μη έγκυρη επιλογή. Προσπαθήστε ξανά.");
                 }
-
             } catch (AccountNotFoundException e) {
-                System.out.println("Ο λογαριασμός δεν βρέθηκε");
+                System.out.println("Ο λογαριασμός δεν βρέθηκε.");
             } catch (NumberFormatException e) {
                 System.out.println("Μη έγκυρη μορφή αριθμού.");
             } catch (ValidationException e) {
-                System.out.println("Λάθος στην επαλίθευση: " + e.getMessage());
+                System.out.println("Λάθος στην επαλήθευση: " + e.getMessage());
             } catch (InsufficientBalanceException e) {
-                System.out.println("Ανεπαρκές Υπόλοιπο");
+                System.out.println("Ανεπαρκές Υπόλοιπο.");
             }
         }
     }
@@ -107,6 +103,6 @@ public class Main {
         System.out.println("4. Ερώτηση Υπολοίπου");
         System.out.println("5. Εκτύπωση όλων των λογαριασμών");
         System.out.println("6. Έξοδος");
-        System.out.println("Εισάγετε μια επιλογή");
+        System.out.println("Εισάγετε μία επιλογή");
     }
 }

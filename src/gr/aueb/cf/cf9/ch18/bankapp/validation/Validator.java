@@ -1,12 +1,8 @@
 package gr.aueb.cf.cf9.ch18.bankapp.validation;
 
-import gr.aueb.cf.cf9.ch18.bankapp.core.exceptions.ValidationException;
-import gr.aueb.cf.cf9.ch18.bankapp.dao.AccountDAOImpl;
 import gr.aueb.cf.cf9.ch18.bankapp.dto.AccountDepositDTO;
 import gr.aueb.cf.cf9.ch18.bankapp.dto.AccountInsertDTO;
 import gr.aueb.cf.cf9.ch18.bankapp.dto.AccountWithdrawDTO;
-import gr.aueb.cf.cf9.ch18.bankapp.service.AccountServiceImpl;
-import gr.aueb.cf.cf9.ch18.bankapp.service.IAccountService;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -24,8 +20,8 @@ public class Validator {
     public static Map<String, String> validateInsertDTO(AccountInsertDTO insertDTO) {
         Map<String, String> errors = new HashMap<>();
 
-        if ((insertDTO.iban() == null) || !insertDTO.iban().trim().matches("GR\\d{3,25}")){
-            errors.put("iban", "Το iban πρέπει να ξεκινάει με GR και να ακολουθείται από 3-25 ψηφία");
+        if (insertDTO.iban() == null || !insertDTO.iban().trim().matches("GR\\d{3,25}")) {
+            errors.put("iban", "Το iban πρέπει να ξεκινάει με GR και να ακολουθείται από 3-25 ψηφία.");
         }
 
         if (insertDTO.balance() == null || insertDTO.balance().compareTo(BigDecimal.ZERO) < 0) {
@@ -69,8 +65,7 @@ public class Validator {
         if (iban == null || !iban.trim().matches("GR\\d{3,25}")) {
             errors.put("iban", "Το iban πρέπει να ξεκινάει με GR και να ακολουθείται από 3-25 ψηφία.");
         }
-
         return errors;
     }
-}
 
+}
